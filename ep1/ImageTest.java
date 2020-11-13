@@ -10,14 +10,21 @@ public class ImageTest {
 		img.setBgColor(0, 0, 0);
 		img.clear();
 
-		for(int i = 0; i < 15000; i++){
+		int numberOfPixels = 15000;
 
-			int x = (int)(Math.random() * w);
-			int y = (int)(Math.random() * h / 2);
+		for(int i = 0; i < numberOfPixels; i++){
 
-			int r = 255;
-			int g = (int)(64 + y/2 + Math.random() * 64); 
-			int b = 255 - g;
+			int x = (int) ((i * w) / numberOfPixels);
+			int y = (int) h/4;
+
+			/* int r = 255; */
+			/* int g = (int)(64 + y/2 + Math.random() * 64); */
+			/* int g = (int)(64 + x/5 + Math.random() * 64); */
+			/* int b = 255 - g; */
+
+			int r = (int) (Math.random() * 256);
+			int g = (int) (Math.random() * 256);
+			int b = (int) (Math.random() * 256);
 			
 			img.setColor(r, g, b);
 			img.setPixel(x, y);
