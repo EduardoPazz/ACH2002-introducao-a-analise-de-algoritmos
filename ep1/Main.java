@@ -15,19 +15,29 @@ public class Main {
 
 			String command = scanner.next();
 
-			if(command.equals("SET_COLOR")){
+			if (command.equals("SET_COLOR")){
 
 				image.setColor(scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
 			}
 
-			if(command.equals("SET_PIXEL")){
+			if (command.equals("SET_PIXEL")){
 
 				image.setPixel(scanner.nextInt(), scanner.nextInt());
 			}
 
-			if(command.equals("DRAW_LINE")){
+			if (command.equals("DRAW_LINE")){
 
 				image.drawLine(scanner.nextInt(), scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
+			}
+
+			if (command.equals("KOCH_CURVE")){
+
+				image.kochCurve(scanner.nextInt(), scanner.nextInt(), scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
+			}
+
+			if (command.equals("REGION_FILL")){
+
+				image.regionFill(scanner.nextInt(), scanner.nextInt());
 			}
 		}
 

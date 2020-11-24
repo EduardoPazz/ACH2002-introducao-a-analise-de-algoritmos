@@ -2,8 +2,6 @@
 
 public class ImageEx extends Image {
 
-	static ImageEx img = null;
-
 	public ImageEx(int w, int h, int r, int g, int b){
 
 		super(w, h, r, g, b);
@@ -14,14 +12,6 @@ public class ImageEx extends Image {
 		super(w, h);
 	}
 
-		/* 
-			P: 0, (int) (h/2)
-			A: (int) (w/3), (int) (h/2)
-			B: (int) (w/2), (int) ((h/2) - (w/3 * Math.sqrt(3) / 2))
-			C: (int) (2*w/3), (int) (h/2)
-			Q: w, (int) (h/2)
-		*/	
-
 	public int distanceBetween(int ax, int ay, int bx, int by) {
 		return (int) ( Math.sqrt( Math.pow(ax - bx, 2) + Math.pow(ay - by, 2) ) );
 	}
@@ -30,12 +20,12 @@ public class ImageEx extends Image {
 
 		int fullDistance = distanceBetween(px, py, qx, qy);
 
-		// The distance between PA, AB, AC and CQ
+		// The distance of the segments PA, AB, AC and CQ too
 		int lineLength = (int) (fullDistance / 3);
 
 		// Escaping condition. Only here the lines will be drawn
 		if (lineLength < l) {
-			img.drawLine(px, py, qx, qy);
+			this.drawLine(px, py, qx, qy);
 			return;
 		}
 
@@ -50,15 +40,16 @@ public class ImageEx extends Image {
 		int xMiddle = (int) (px + ( (double) (qx - px) / 2));
 		int yMiddle = (int) (py + ( (double) (qy - py) / 2));
 
+		////// Then the angle and the skews
 		double angle = (Math.PI/2) - Math.atan((double) (qy-py)/(qx-px));
+		double triangleHeight = lineLength * Math.sqrt(3) / 2;
+		double xSkew =triangleHeight * Math.cos(angle);
+		double ySkew =triangleHeight * Math.sin(angle);
 
-		double xSkew = lineLength * Math.cos(angle);
-		double ySkew = lineLength * Math.sin(angle);
+		int bx = 0;
+		int by = 0;
 
-		int bx;
-		int by;
-
-		if (px < qx) {
+		if (px <= qx) {
 			bx = (int) (xMiddle + xSkew);
 			by = (int) (yMiddle - ySkew);
 		} else {
@@ -66,39 +57,47 @@ public class ImageEx extends Image {
 			by = (int) (yMiddle + ySkew);
 		}
 
-		//// Calculating A coordenates
+		//// Calculating C coordenates
 		int cx = (int) (px + ((qx - px) * 2.0/3.0));
 		int cy = (int) (py + ((qy - py) * 2.0/3.0));
 
-		img.kochCurve(px, py, ax, ay, l);
-		img.kochCurve(ax, ay, bx, by, l);
-		img.kochCurve(bx, by, cx, cy, l);
-		img.kochCurve(cx, cy, qx, qy, l);
+		/* System.out.println(img); */
+
+		this.kochCurve(px, py, ax, ay, l);
+		this.kochCurve(ax, ay, bx, by, l);
+		this.kochCurve(bx, by, cx, cy, l);
+		this.kochCurve(cx, cy, qx, qy, l);
 	}
 
-	public void regionFill(int x, int y, int reference_rgb){
+	public boolean isValidCoordenate(int x, int y) {
+		boolean notValid = (
+			x < 0 ||
+			x >= this.getWidth() ||
+			y < 0 ||
+			y >= this.getHeight()
+		);
 
+		return !notValid;
 	}
 
-	public static void drawCurve() {
+	private void regionFill(int x, int y, int referenceRGB) {
+		if (this.isValidCoordenate(x, y)) {
+			if (this.getPixel(x, y) == referenceRGB) {
 
-		int w = 1000;
-		int h = 1000;
+				this.setPixel(x, y);
 
-		img = new ImageEx(w, h, 0, 0, 0);
-
-		img.clear();		
-
-		img.setColor(0, 255, 0);
-
-		/* img.kochCurve(500, 250, 500, 750, 10); */
-		img.kochCurve(500, 750, 500, 250, 10);
-
-
-		img.save("out.png");
+				// Recursive calls
+				this.regionFill(x+1, y, referenceRGB);
+				this.regionFill(x, y+1, referenceRGB);
+				this.regionFill(x-1, y, referenceRGB);
+				this.regionFill(x, y-1, referenceRGB);
+			}
+		}
 	}
 
-	public static void main(String[] args) {
-		drawCurve();
+	public void regionFill(int x, int y) {
+		if (this.isValidCoordenate(x, y)) {
+			this.regionFill(x, y, this.getPixel(x, y));				
+		}
 	}
 }
