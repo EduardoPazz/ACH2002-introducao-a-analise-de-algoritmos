@@ -1,5 +1,5 @@
 ![imagem1](1.png)
-# EP1 - Introdução à Análise de Algoritmos :computer:
+# EP1 - Simples aplicação de Recursão em Computação Gráfica - Introdução à Análise de Algoritmos :computer:
 
 ## O que há neste programa
 
