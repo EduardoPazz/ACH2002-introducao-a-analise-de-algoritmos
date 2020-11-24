@@ -1,5 +1,5 @@
 ![imagem1](1.png)
-# EP1 - Introdução à Análise de Algoritmos :punch:
+# EP1 - Introdução à Análise de Algoritmos :computer:
 
 ## O que há neste programa
 
@@ -29,7 +29,7 @@ java Main path/to/arquivo_de_entrada nome_da_imagem_gerada.[jpg|png]
 ```
 
 ### Exemplos de entrada
-Este é um exemplo de entrada válida, referente ao arquivo `entradas/entrada5.txt`
+Este é um exemplo de entrada válida, referente ao arquivo [`entradas/entrada5.txt`](entradas/entrada5.txt)
 ```
 500 567 8 64 128
 SET_COLOR 76 8 193
@@ -54,11 +54,11 @@ REGION_FILL 250 250
 ```
 
 ## Imagens Exemplo
-### Entradas cedidas pelo professor Flávio Coutinho
+### Entradas cedidas pelo professor [Flávio Luiz Coutinho](https://latin.ime.usp.br/people/fcoutinho/)
 ![imagem1](1.png)
 ![imagem2](2.png)
 ![imagem3](3.png)
-### Entradas formuladas pelo aluno Egy 
+### Entradas formuladas pelo colega de classe [Egydio Pacheco](https://github.com/egydiopacheco) 
 ![imagem4](4.png)
 ![imagem5](5.png)
 
@@ -66,9 +66,9 @@ REGION_FILL 250 250
 ### Preenchimento de Região
 O algoritmo de preenchimento de Região não possui nenhum segredo senão o uso de recursão. Um pixel é pintado caso atenda aos requisitos, e então é feita uma chamada recursiva nas quatro direções cardeais.
 ### Curva de Koch
-O algoritmo da Curva de Koch é um pouco mais complicado. Conforme explicado em `enunciado_EP1.pdf`, precisamos calcular os pontos A, B e C entre os pontos P e Q.
+O algoritmo da Curva de Koch é um pouco mais complicado. Conforme explicado em [`enunciado_EP1.pdf`](enunciado_EP1.pdf), precisamos calcular os pontos A, B e C entre os pontos P e Q.
 
-Calcular A e C é relativamente fácil, pois demandou apenas uma fórmula oriunda do princípio de Semelhança de Triângulos. Fórmula esta que, independente das posições de P e Q, funciona sempre.
+Calcular A e C é relativamente fácil, pois demanda apenas uma fórmula oriunda do princípio de Semelhança de Triângulos. Fórmula esta que, independente das posições de P e Q, funciona sempre.
 
 A parte complicada fica como mérito do cálculo do ponto B, pois a posição de P e Q influencia na fórmula. A lógica que eu segui é a seguinte:
 ![Diagrama do Ponto B](koch-diagram.png)
@@ -81,7 +81,7 @@ A parte complicada fica como mérito do cálculo do ponto B, pois a posição de
   - Altura do triângulo ABC: aresta * sqrt(3) / 2
   - Segmento DE: altura * cos(delta)
   - Segmento BE: altura * sen(delta)
-1. No exemplo de P e Q no diagrama apresentado, para alcançar B a partir de D precisamos **somar o comprimento do segmento DE na coordenada x** e **subtrair o comprimento do segmento BE no eixo y**. Este é o caso em que a *coordenada x de P é **menor** que a coordenada x de Q*.
+1. No exemplo de P e Q no diagrama apresentado, para alcançar B a partir de D precisamos **somar o comprimento do segmento DE na coordenada x** e **subtrair o comprimento do segmento BE no eixo y**. Este é o caso em que a *coordenada x de P é **menor** que a coordenada x de Q* e o triângulo ABC "cresce pra cima".
 2. Caso contrário, ou seja, *a coordenada x de P seja **maior** que a coordenada x de Q*, precisamos inverter as operações de soma e subtração apresentadas acima. Neste caso o triângulo ABC "cresce pra baixo".
 3. Ainda há um caso especial: As coordenadas x de P e Q serem exatamente iguais, ou seja, o segmento PQ ser vertical: neste caso, como a convenção é que o triângulo ABC "cresça pra cima", mantemos o algoritmo do item 1. Desta forma, se P estiver acima de Q, o triângulo ABC "cresce pra direita", caso contrário, ele "cresce pra esquerda". 
 ## Considerações finais
