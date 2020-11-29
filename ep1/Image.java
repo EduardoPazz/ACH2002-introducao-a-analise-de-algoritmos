@@ -3,7 +3,7 @@ import java.awt.image.*;
 import javax.imageio.*;
 import java.io.*;
 
-// Classe Image - nao deve ser modificada
+// João Eduardo da Paz Silva - 11845514
 
 public class Image {
 
