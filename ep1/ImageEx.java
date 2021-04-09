@@ -24,7 +24,7 @@ public class ImageEx extends Image {
 		int lineLength = (int) (fullDistance / 3);
 
 		// Escaping condition. Only here the lines will be drawn
-		if (lineLength < l) {
+		if (fullDistance < l) {
 			this.drawLine(px, py, qx, qy);
 			return;
 		}
